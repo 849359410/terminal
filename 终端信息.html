@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>JS获取手机型号和系统</title>
+    <style type="text/css">
+        p {
+            text-indent: 2em;
+        }
+    </style>
+    <script src="jquery.min.js"></script>
+    <script src="mobile-detect.min.js"></script>
+    <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+</head>
+
+<body>
+</body>
+
+<script>
+    //判断数组中是否包含某字符串
+    Array.prototype.contains = function(needle) {
+        for (i in this) {
+            if (this[i].indexOf(needle) > 0)
+                return i;
+        }
+        return -1;
+    }
+
+    var device_type = navigator.userAgent;
+    var a = device_type.split(';')
+    for (var i = 0; i < a.length; i++) {
+        var b = a[1];
+    }
+
+
+    var md = new MobileDetect(device_type);
+
+    //打印操作系统
+    document.write('<p>' + "操作系统：" + navigator.platform + '</p>');
+
+    var os = md.os(); //获取系统
+    var model = "";
+    if (os == "iOS") { //ios系统的处理
+        os = md.os() + md.version("iPhone");
+        model = md.mobile();
+        var a = device_type.split(')')
+        for (var i = 0; i < a.length; i++) {
+            var b = a[0]
+        }
+        document.write('<p>' + "手机信息：" + b + '</p>')
+        document.write('<p>' + "系统版本：" + os + '</p>')
+        document.write('<p>' + "手机型号：" + model + '</p>')
+    } else if (os == "AndroidOS") { //Android系统的处理
+        os = md.os() + md.version("Android");
+        var sss = device_type.split(";");
+        var i = sss.contains("Build/");
+        var a = device_type.split(')')
+        for (var j = 0; j < a.length; j++) {
+            var b = a[0]
+        }
+        document.write('<p>' + "手机信息：" + b + '</p>')
+        document.write('<p>' + "系统版本：" + os + '</p>')
+
+        if (i > -1) {
+            model = sss[i].substring(0, sss[i].indexOf("Build/"));
+            document.write('<p>' + "手机型号：" + model + '</p>')
+        }
+    }
+
+
+    //获取当前IP地址
+    document.write('<p>' + "IP地址：" + returnCitySN.cip + '</p>')
+
+    var product = navigator.product; // 浏览器的产品名（IE没有）
+    console.log(product)
+</script>
+<script>
+    var device_type = navigator.userAgent; //获取userAgent信息
+    //  document.write(device_type);//打印到页面
+    var a = device_type.split(')')
+    for (var i = 0; i < a.length; i++) {
+        var b = a[2];
+    }
+    document.write('<p>' + "浏览器信息：" + b + '</p>');
+
+    //获取浏览器插件信息
+    var plugins = navigator.plugins;
+    console.log(plugins)
+    for (var i = 0; i < plugins.length; i++) {
+        document.write('<p>' + "浏览器安装的插件：" + plugins[i].name + '</p>')
+    }
+
+    //调用手机摄像头
+</script>
+
+
+</html>
